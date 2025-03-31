@@ -23,8 +23,6 @@ async function handler(req, res) {
   const existingUser = await db.collection('users').findOne({ email: email });
 
   if (existingUser) {
-    // console.log('existingUser', existingUser);
-
     res.status(422).json({ message: 'User already exists' });
     client.close();
     return;
