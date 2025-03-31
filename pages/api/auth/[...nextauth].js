@@ -32,7 +32,6 @@ export default NextAuth({
 
         // JSON web token (JWT)
         const jwt = { email: user.email };
-        console.log('jwt', jwt);
 
         return jwt;
       },
