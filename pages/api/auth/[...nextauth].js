@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import Credentials from 'next-auth/providers/credentials';
 
 import { connectToDatabase } from '../../../lib/db';
 
@@ -8,7 +8,7 @@ import { verifyPassword } from './auth';
 export default NextAuth({
   session: { jwt: true },
   providers: [
-    Providers.Credentials({
+    Credentials({
       async authorize(credentials) {
         const client = await connectToDatabase();
 
@@ -31,7 +31,10 @@ export default NextAuth({
         client.close();
 
         // JSON web token (JWT)
-        return { email: user.email };
+        const jwt = { email: user.email };
+        console.log('jwt', jwt);
+
+        return jwt;
       },
     }),
   ],
