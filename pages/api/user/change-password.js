@@ -1,4 +1,6 @@
-import { getSession } from 'next-auth/react';
+// import { getServerSession } from 'next-auth';
+
+import { getSession } from 'next-auth/client';
 
 import { hashPassword, verifyPassword } from '../auth/auth';
 import { connectToDatabase } from '../../../lib/db';
@@ -8,7 +10,9 @@ async function handler(req, res) {
     return;
   }
 
-  const session = await getSession({ req: req });
+  const session = await getSession({ req });
+
+  console.log('session', session);
 
   if (!session) {
     res.status(401).json({ message: 'Not authenticated!' });
